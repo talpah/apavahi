@@ -1,0 +1,64 @@
+#!/bin/bash
+
+if [[ $UID != 0 ]]; then
+    echo "Please run this script with sudo:"
+    echo "sudo $0 $*"
+    exit 1
+fi
+
+ava="/etc/apache2/sites-available";
+ena="/etc/apache2/sites-enabled";
+
+while getopts ":hw:p:" opt; do
+    case $opt in
+        p)
+            docroot="$OPTARG"
+            ;;
+        w)
+            vhost="$OPTARG"
+            ;;
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            exit 1
+            ;;
+        :)
+            echo "Option -$OPTARG requires an argument." >&2
+            exit 1
+            ;;
+    esac
+done
+
+
+if [ -z "$docroot" ] || [ -z "$vhost" ]; 
+then
+    echo -e "Usage:\n\t`basename $0` <options>\n\nWhere <options> are:\n\n\t-w hostname\n\t-p path_to_document_root\n" >&2
+    exit 1
+fi
+
+if [ ! -d "$docroot" ];
+then
+    echo "Invalid path specified: $docroot"
+    exit 2
+fi
+
+if [ ! -w "$ava" ];
+then
+    echo "Not writable: $ava" 
+    exit 2
+fi
+
+if [[ -e ${ava}/${vhost} ]]; then
+    echo "${ava}/${vhost} already exists. Skipping.";
+elif [[ -e ${ena}/${vhost} ]]; then
+    echo "${ena}/${vhost} already exists. Skipping.";
+else
+    if [[ ! -e `dirname $0`/template.http ]]; then
+        echo "`dirname $0`/template.http does not exist. Cannot create ${ena}/${vhost}.";
+    else
+         sed -e "s/%hostname%/$vhost/g" -e "s|%docroot%|$docroot|g" "`dirname $0`/template.http" > ${ava}/${vhost}
+    fi
+fi
+
+a2ensite "$vhost"
+service apache2 reload
+

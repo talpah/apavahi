@@ -1,0 +1,20 @@
+<VirtualHost *:80>
+        ServerName %hostname%.local
+
+        <Directory %docroot%>
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride All
+                Order allow,deny
+                allow from all
+        </Directory>
+
+        #Apache Environment variables are used in recent installs, set
+        #log locations specifically if not available in your distribution.
+        ErrorLog ${APACHE_LOG_DIR}/%hostname%-error.log
+
+        # Possible values include: debug, info, notice, warn, error, crit,
+        # alert, emerg.
+        LogLevel warn
+        CustomLog ${APACHE_LOG_DIR}/%hostname%-access.log combined
+</VirtualHost>
+

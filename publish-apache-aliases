@@ -1,0 +1,3 @@
+#!/bin/bash
+
+avahi-browse -t -d local -l -p _http._tcp | grep -e 'IPv4;.*\.local;Web Site' | cut -d';' -f4 | sed 's/\\//' | tr "\\n" " " | xargs ./addalias.py
