@@ -17,18 +17,33 @@ On Linux clients:
 On Windows clients:
 > - Bonjour from Apple or something similar
 
-Steps:
+Steps:  (First time usage run all steps; Subsequent usages should only run step 4; When adding new vhosts, go from 2)
 ---
-1.  Create your document root(s) and note the path(s)
-2.  Run create-apache-vhost for each one (just run it without params to see the usage)
-3.  Run publish-apache-aliases
+1.  Enable mod-dnssd in Apache
+2.  Create your document root(s) and note the path(s)
+3.  Run create-apache-vhost for each one (just run it without params first to see the usage)
+4.  Run publish-apache-aliases (note that this process will not terminate unless told so, with Ctrl-C)
+
+Caveats:
+---
+By default, on debian and friends, mod-dnssd should come with the following configuration. If not, make it happen.
+
+```apache
+# This is the config file for mod_dnssd.
+
+<IfModule mod_dnssd.c>
+    DNSSDEnable On
+    DNSSDAutoRegisterVHosts On
+</IfModule>
+```
+
 
 Explanations:
 ---
 - create-apache-vhost       - creates and activates a vhost in apache with specified data
 - publish-apache-aliases    - gets all non-local ".local" Web Services from Avahi and passes them to addalias.py
 - addalias.py               - pushes CNAME records to Avahi for specified aliases
-
+- template.http             - this contains the Apache vhost template that will be used to create all new hosts
 
 
 Authors:
