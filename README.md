@@ -1,11 +1,21 @@
 apavahi
 =======
+Use Avahi to provide DNS resolving for local development. This set of scripts allows 
+using a single machine with multiple vhosts. All ServerNames will be in the form of _vhost_.local.
 
 You need to have:
 ---
-- Apache
-- mod-dnssd
-- Avahi
+On development server/vm:
+> - Linux
+> - Apache
+> - mod-dnssd
+> - Avahi
+
+On Linux clients:
+> - Avahi
+
+On Windows clients:
+> - Bonjour from Apple or something similar
 
 Steps:
 ---
