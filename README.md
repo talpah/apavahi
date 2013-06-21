@@ -17,8 +17,10 @@ On Linux clients:
 On Windows clients:
 > - Bonjour from Apple or something similar
 
-Steps:  (First time usage run all steps; Subsequent usages should only run step 4; When adding new vhosts, go from 2)
+Steps: 
 ---
+(First time usage run all steps; Subsequent usages should only run step 4; When adding new vhosts, go from 2)
+
 1.  Enable mod-dnssd in Apache
 2.  Create your document root(s) and note the path(s)
 3.  Run create-apache-vhost for each one (just run it without params first to see the usage)
