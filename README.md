@@ -12,10 +12,13 @@ On development server/vm:
 > - Avahi
 
 On Linux clients:
-> - Avahi
+> - Avahi 
 
 On Windows clients:
-> - Bonjour from Apple or something similar
+> - Bonjour from Apple - http://support.apple.com/kb/DL999
+
+Optional:
+> - Chrome/Firefox extension for service discovery: http://dnssd.me/
 
 Steps: 
 ---
