@@ -38,13 +38,18 @@ Caveats:
     DNSSDAutoRegisterVHosts On
 </IfModule>
 ```
-- In order for Apache to propagate names through mod-dnssd, Avahi must be started. If you plan to use this feature on boot, you must ensure Apache service is started after Avahi. On Debian, you might need to adjust the LSB headers for the Apache init script (/etc/init.d/apache2), by adding "avahi" at the end of the "Required-Start" tag, like so, and then run "update-rc.d apache2 defaults" as root, to reorder the startup sequence.
+- In order for Apache to propagate names through mod-dnssd, Avahi must be started. If you plan to 
+    use this feature on boot, you must ensure Apache service is started after Avahi. 
+    On Debian, you might need to adjust the LSB headers for the Apache init script (/etc/init.d/apache2), 
+    by adding "avahi" at the end of the "Required-Start" tag, and then run "update-rc.d apache2 defaults" 
+    as root, to reorder the startup sequence.
 
 
 Explanations:
 ---
 - create-apache-vhost       - creates and activates a vhost in apache with specified data
 - publish-apache-aliases    - gets all non-local ".local" Web Services from Avahi and passes them to addalias.py
+- list-avahi-web-services   - lists all non-local ".local" Web Services from Avahi
 - addalias.py               - pushes CNAME records to Avahi for specified aliases
 - template.http             - this contains the Apache vhost template that will be used to create all new hosts
 
