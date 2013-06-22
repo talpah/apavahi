@@ -5,20 +5,20 @@ using a single machine with multiple vhosts. All ServerNames will be in the form
 
 You need to have:
 ---
-On development server/vm:
+#### On development server/vm: ####
 > - Linux
 > - Apache
 > - mod-dnssd
 > - Avahi
 > - this set of scripts
 
-On Linux clients:
+#### On Linux clients: ####
 > - Avahi 
 
-On Windows clients:
+#### On Windows clients: ####
 > - Bonjour from Apple - http://support.apple.com/kb/DL999
 
-Optional:
+#### Optional: ####
 > - Chrome/Firefox extension for service discovery: http://dnssd.me/
 
 Steps: 
@@ -27,10 +27,10 @@ Steps:
 
 1.  Enable mod-dnssd in Apache 
 2.  Create your document root(s) and note the path(s)
-3.  Run create-apache-vhost for each one (just run it without params first to see the usage)
+3.  Run create-apache-vhost for each path from above (just run it without params first to see the usage)
 4.  Run publish-apache-aliases (note that this process will not terminate unless told so, with Ctrl-C)
 
-Example first time usage for a debian/ubuntu machine:
+### Example first time usage for a debian/ubuntu machine: ###
 ```sh
 # Ensure we have the prerequisites:
 sudo apt-get install apache2 avahi-daemon 
