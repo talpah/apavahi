@@ -1,3 +1,12 @@
 #!/bin/bash
 
-avahi-browse -t -d local -l -p _http._tcp | grep -e 'IPv4;.*\.local;Web Site' | cut -d';' -f4 | sed 's/\\//' | tr "\\n" " " | xargs ./addalias.py
+mydir=`dirname $0`
+domains=`${mydir}/list-avahi-web-services | tr "\\n" " "`
+
+echo "Found domains: ${domains}"
+if [ "${domains}" == "" ]; then
+    echo "No domains, exiting."
+    exit 1
+fi
+echo "Starting publisher... Hit Ctrl-C to end."
+${mydir}/addalias.py ${domains}

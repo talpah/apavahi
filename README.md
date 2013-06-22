@@ -28,7 +28,7 @@ Steps:
 
 Caveats:
 ---
-By default, on debian and friends, mod-dnssd should come with the following configuration. If not, make it happen.
+- By default, on debian and friends, mod-dnssd should come with the following configuration. If not, make it happen.
 
 ```apache
 # This is the config file for mod_dnssd.
@@ -38,6 +38,7 @@ By default, on debian and friends, mod-dnssd should come with the following conf
     DNSSDAutoRegisterVHosts On
 </IfModule>
 ```
+- In order for Apache to propagate names through mod-dnssd, Avahi must be started. If you plan to use this feature on boot, you must ensure Apache service is started after Avahi. On Debian, you might need to adjust the LSB headers for the Apache init script (/etc/init.d/apache2), by adding "avahi" at the end of the "Required-Start" tag, like so, and then run "update-rc.d apache2 defaults" as root, to reorder the startup sequence.
 
 
 Explanations:
