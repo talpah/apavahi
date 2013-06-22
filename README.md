@@ -10,6 +10,7 @@ On development server/vm:
 > - Apache
 > - mod-dnssd
 > - Avahi
+> - this set of scripts
 
 On Linux clients:
 > - Avahi 
@@ -24,10 +25,37 @@ Steps:
 ---
 (First time usage run all steps; Subsequent usages should only run step 4; When adding new vhosts, go from 2)
 
-1.  Enable mod-dnssd in Apache
+1.  Enable mod-dnssd in Apache 
 2.  Create your document root(s) and note the path(s)
 3.  Run create-apache-vhost for each one (just run it without params first to see the usage)
 4.  Run publish-apache-aliases (note that this process will not terminate unless told so, with Ctrl-C)
+
+Example first time usage for a debian/ubuntu machine:
+```sh
+# Ensure we have the prerequisites:
+sudo apt-get install apache2 avahi-daemon 
+
+# Start them, just in case
+sudo service avahi-daemon start
+sudo service apache2 start
+
+# Enable mod-dnssd:
+sudo a2enmod mod-dnssd
+sudo service apache2 restart
+
+# Get the scripts:
+git clone https://github.com/talpah/apavahi.git
+
+# Create a vhost:
+sudo apavahi/create-apache-vhost -w mynewvhost -p /var/www/mynewvhost
+
+# Check the dns:
+apavahi/list-avahi-web-services
+# You should get "mynewvhost.local"
+
+# Start the publisher - this will keep running until you kill it, so background it
+apavahi/publish-apache-aliases &
+```
 
 Caveats:
 ---
@@ -50,7 +78,7 @@ Caveats:
 
 Explanations:
 ---
-- create-apache-vhost       - creates and activates a vhost in apache with specified data
+- create-apache-vhost       - creates and activates a vhost in apache with specified data (reloads apache)
 - publish-apache-aliases    - gets all non-local ".local" Web Services from Avahi and passes them to addalias.py
 - list-avahi-web-services   - lists all non-local ".local" Web Services from Avahi
 - addalias.py               - pushes CNAME records to Avahi for specified aliases
