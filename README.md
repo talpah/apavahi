@@ -10,6 +10,7 @@ You need to have:
 > - Apache
 > - mod-dnssd
 > - Avahi
+> - python-avahi
 > - this set of scripts
 
 #### On Linux clients: ####
@@ -33,7 +34,7 @@ Steps:
 ### Example first time usage for a debian/ubuntu machine: ###
 ```sh
 # Ensure we have the prerequisites:
-sudo apt-get install apache2 avahi-daemon libapache2-mod-dnssd
+sudo apt-get install apache2 avahi-daemon libapache2-mod-dnssd python-avahi
 
 # Start them, just in case
 sudo service avahi-daemon start
