@@ -33,7 +33,7 @@ Steps:
 ### Example first time usage for a debian/ubuntu machine: ###
 ```sh
 # Ensure we have the prerequisites:
-sudo apt-get install apache2 avahi-daemon 
+sudo apt-get install apache2 avahi-daemon libapache2-mod-dnssd
 
 # Start them, just in case
 sudo service avahi-daemon start
