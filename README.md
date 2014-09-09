@@ -1,4 +1,4 @@
-apavahi
+apavahi (discontinued)
 =======
 Use Avahi to provide DNS resolving for local development. This set of scripts allows 
 using a single machine with multiple vhosts. All ServerNames will be in the form of _vhost_.local.
